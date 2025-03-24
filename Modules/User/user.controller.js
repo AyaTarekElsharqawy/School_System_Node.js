@@ -9,14 +9,13 @@ import { catchError } from "../../MiddleWare/catchError.js";
 export const signUp = catchError(
     async (req,res) => {
     console.log("SignUp function called"); 
+    req.body.role = req.body.role || "teacher";
     req.body.password = bcrypt.hashSync(req.body.password, 8);
     if (req.body.role === "admin") {
         req.body.isConfirmed = true;
-    } else {
-        req.body.isConfirmed = false;
-    }
+    } 
     const addUser = await userModel.insertMany(req.body);//insertMany return an Array of object
-    if (req.body.role === "customer") {
+    if (req.body.role === "teacher") {
         await sendEmail(req.body.email);   
          console.log("Sending email to:", req.body.email); 
 

@@ -7,14 +7,9 @@ const userSchema = Schema({
     phone:String,
     role:{
         type: String,
-        enum:["admin" , "customer"],
-        default:"customer"
-    },status:{
-        type:String,
-        enum:["active", "restricted", "banned"],
-        default:"active"
+        enum:["admin" , "teacher"],
+        default:"teacher"
     },
-    status: { type: String, enum: ["active", "restricted" , "panned"], default: "active" },
     isConfirmed:
     {
         type:Boolean,
@@ -25,4 +20,4 @@ const userSchema = Schema({
         timestamps:true, // add createdAt and updatedAt
         versionKey:false
     })
-export const userModel = model("customer", userSchema);
+export const userModel = model("users", userSchema);
