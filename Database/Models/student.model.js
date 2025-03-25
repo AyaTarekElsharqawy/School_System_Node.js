@@ -8,7 +8,7 @@ const studentSchema = new mongoose.Schema({
     whatsapp: { type: String, required: true },
     image: { 
         type: String, 
-        default: "http://localhost:3030/images/default.png"
+        default: "http://localhost:3030/images/profile.png"
     }
 });
 

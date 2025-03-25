@@ -7,7 +7,7 @@ export const addStudent = async (req, res) => {
         const { name, age, studentClass, guardianPhone, whatsapp, image } = req.body;
 
         // إذا لم يرفع المستخدم صورة، استخدم الصورة الافتراضية
-        const studentImage = image || "http://localhost:3030/images/default.png";
+        const studentImage = image || "http://localhost:3030/images/profile.png";
 
         const newStudent = new Student({
             name,
