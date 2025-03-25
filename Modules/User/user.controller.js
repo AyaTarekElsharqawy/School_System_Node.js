@@ -9,17 +9,20 @@ import { catchError } from "../../MiddleWare/catchError.js";
 export const signUp = catchError(
     async (req,res) => {
     console.log("SignUp function called"); 
-    req.body.role = req.body.role || "teacher";
+    // req.body.role = "teacher";
     req.body.password = bcrypt.hashSync(req.body.password, 8);
     if (req.body.role === "admin") {
-        req.body.isConfirmed = true;
-    } 
+        return res.status(403).json({ message: "Admins cannot register themselves!" });
+      }
+    // if (req.body.role === "admin") {
+    //     req.body.isConfirmed = true;
+    // } 
     const addUser = await userModel.insertMany(req.body);//insertMany return an Array of object
-    if (req.body.role === "teacher") {
+    // if (req.body.role === "teacher") {
         await sendEmail(req.body.email);   
          console.log("Sending email to:", req.body.email); 
 
-    }
+    // }
     addUser[0].password = undefined;// remove password from the response
     res.status(201).json({message:"done", addUser});// 201 status code is used for created
 })
