@@ -8,8 +8,8 @@ import { catchError } from "../../MiddleWare/catchError.js";
 //Sign UP
 export const signUp = catchError(
     async (req,res) => {
-    console.log("SignUp function called"); 
-    // req.body.role = "teacher";
+        console.log("Received Data:", req.body); // ✅ طباعة البيانات للتحقق
+        // req.body.role = "teacher";
     req.body.password = bcrypt.hashSync(req.body.password, 8);
     if (req.body.role === "admin") {
         return res.status(403).json({ message: "Admins cannot register themselves!" });
@@ -41,11 +41,40 @@ async (req,res)=>
         { expiresIn: "7d" } 
     ); 
         
-        res.status(200).json({message:`welcome ${foundUser.name}`, token});
+        res.status(200).json({message:`welcome ${foundUser.name}`, token,role: foundUser.role,name:foundUser.name});
     }else{
         res.status(401).json({message:"Check your Email to confirm!"});
     }
 })
+export const addAdmin = async (req, res) => {
+    try {
+      const { name, email, password } = req.body;
+  
+      // تحقق مما إذا كان البريد الإلكتروني مستخدمًا بالفعل
+      const existingUser = await userModel.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "Email already exists!" });
+      }
+  
+      // تشفير كلمة المرور
+      const hashedPassword = bcrypt.hashSync(password, 10);
+  
+      // إنشاء Admin جديد
+      const newAdmin = new userModel({
+        name,
+        email,
+        password: hashedPassword,
+        role: "admin",
+        isConfirmed: true
+      });
+  
+      await newAdmin.save();
+      res.status(201).json({ message: "Admin created successfully!" });
+  
+    } catch (error) {
+      res.status(500).json({ message: "Error creating admin!", error });
+    }
+  };
 
 // forgotPassword
 export const forgotPassword = catchError(async (req, res) => {

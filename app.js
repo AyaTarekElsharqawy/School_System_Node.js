@@ -4,11 +4,21 @@ import express from "express";
 import myConnection from "./Database/dbconnection.js";
 import customerRoute from './Modules/User/user.route.js';
 import ProductRoute from './Modules/Product/product.route.js';
+import cors from 'cors';
 import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: 'http://localhost:4200', 
+  credentials: true, // ✅ دعم الكوكيز والتوكنات
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 
 app.use( customerRoute);
