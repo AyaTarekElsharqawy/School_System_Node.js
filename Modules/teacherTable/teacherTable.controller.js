@@ -88,11 +88,11 @@ export const getTeachers = catchError(async (req, res) => {
   });
 
 export const getTeacherByQuery = catchError(async (req, res) => {
-    const { name, specialization, subject } = req.query;
+    const { name, age, subject } = req.query;
     let query = {};
 
     if (name) query.name = { $regex: name, $options: "i" };
-    if (specialization) query.specialization = specialization;
+    if (age) query.age = age;
     if (subject) query.subject = subject;
 
     const teachers = await teacherModel.find(query);
@@ -102,7 +102,13 @@ export const getTeacherByQuery = catchError(async (req, res) => {
         data: teachers
     });
 });
-
+export const getTeacherById = catchError(async (req, res) => {
+const teacher = await teacherModel.findById(req.params.id);
+if (!teacher) {
+    return res.status(404).json({ message: 'Teacher not found' });
+}
+res.json(teacher);
+});
 export const updateTeacherById = catchError(async (req, res) => {
   const teacherId = req.params.id;
   
