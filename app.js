@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import myConnection from "./Database/dbconnection.js";
- import customerRoute from './Modules/User/user.route.js';
+ import userRoute from './Modules/User/user.route.js';
 import examRoute from './Modules/Exams/exam.route.js';
 import path from "path";
 import { fileURLToPath } from "url";
@@ -24,7 +24,7 @@ app.use(cors({
   }));
 
   app.use('/api', migrationRoutes);
-  app.use('/api/users', customerRoute);
+  app.use(userRoute);
   app.use('/api/exams', examRoute);
   app.use('/api/teachers', TeacherRoute);
 

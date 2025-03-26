@@ -64,7 +64,7 @@ export const createTeacher = async (req, res) => {
         age: req.body.age,
         phone: req.body.phone,
         email: req.body.email,
-        specialization: req.body.degree,
+        degree: req.body.degree,
         subject: req.body.subject,
         image: imagePath,
         createdBy: req.user?.id
@@ -104,44 +104,55 @@ export const getTeacherByQuery = catchError(async (req, res) => {
 });
 
 export const updateTeacherById = catchError(async (req, res) => {
-    const teacherId = req.params.id;
-    let teacher = await teacherModel.findById(teacherId);
+  const teacherId = req.params.id;
+  
+  // Check if teacher exists
+  const teacher = await teacherModel.findById(teacherId);
+  if (!teacher) {
+      return res.status(404).json({ 
+          success: false,
+          message: "Teacher not found" 
+      });
+  }
 
-    if (!teacher) {
-        return res.status(404).json({ message: "Teacher not found" });
-    }
+  // Prepare update data
+  const updateData = {
+      name: req.body.name || teacher.name,
+      age: req.body.age || teacher.age,
+      phone: req.body.phone || teacher.phone,
+      email: req.body.email || teacher.email,
+      degree: req.body.degree || teacher.degree, // Changed from specialization
+      subject: req.body.subject || teacher.subject
+  };
 
-    const { name, age, phone, email, subject } = req.body;
-    const specialization = req.body.degree;
-    const index = this.teacher.findIndex(t => t.id === updatedTeacher.id);
-    if (index !== -1) {
-      this.teacher[index] = updatedTeacher;
-    }
-    const updateData = {
-        name,
-        age,
-        phone,
-        email,
-        specialization,
-        subject
-    };
+  // Handle image update
+  if (req.file) {
+      updateData.image = `/uploads/${req.file.filename}`;
+  }
 
-    if (req.file) {
-        updateData.image = `/uploads/${req.file.filename}`;
-    }
+  // Check for duplicate phone/email
+  if (req.body.phone && req.body.phone !== teacher.phone) {
+      const existingPhone = await teacherModel.findOne({ phone: req.body.phone });
+      if (existingPhone) {
+          return res.status(400).json({
+              success: false,
+              message: 'Phone number already exists'
+          });
+      }
+  }
 
-    const updatedTeacher = await teacherModel.findByIdAndUpdate(
-        teacherId, 
-        updateData, 
-        { new: true, runValidators: true }
-    );
+  // Perform update
+  const updatedTeacher = await teacherModel.findByIdAndUpdate(
+      teacherId, 
+      updateData, 
+      { new: true, runValidators: true }
+  );
 
-    res.json({
-        success: true,
-        data: updatedTeacher
-    });
+  res.json({
+      success: true,
+      data: updatedTeacher
+  });
 });
-
 export const deleteTeacherById = catchError(async (req, res) => {
     const teacherId = req.params.id;
     const teacher = await teacherModel.findById(teacherId);

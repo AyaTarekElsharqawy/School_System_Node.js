@@ -27,9 +27,9 @@ const teacherSchema = new mongoose.Schema({
         lowercase: true,
         match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
     },
-    specialization: { 
+    degree: { 
         type: String, 
-        required: [true, 'Specialization is required'] 
+        required: [true, 'degree is required'] 
     },
     subject: { 
         type: String, 

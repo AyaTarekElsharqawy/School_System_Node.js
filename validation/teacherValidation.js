@@ -5,8 +5,8 @@ const TeacherSchema = Joi.object({
     age: Joi.number().min(18).required(),
     phone: Joi.string().required(),
     email: Joi.string().email().required(),
-    specialization: Joi.string().required(),
-    subject: Joi.string().required(),
+    degree: Joi.string().required(),   
+      subject: Joi.string().required(),
     image: Joi.string().optional()
 });
 
@@ -15,8 +15,8 @@ const TeacherUpdateSchema = Joi.object({
     age: Joi.number().min(18).optional(),
     phone: Joi.string().optional(),
     email: Joi.string().email().optional(),
-    specialization: Joi.string().optional(),
-    subject: Joi.string().optional(),
+    degree: Joi.string().required(),   
+      subject: Joi.string().optional(),
     image: Joi.string().optional()
 });
 

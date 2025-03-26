@@ -8,13 +8,8 @@ const userSchema = Schema({
     role:{
         type: String,
         enum:["admin" , "teacher"],
-        default:"customer"
-    },status:{
-        type:String,
-        enum:["active", "restricted", "banned"],
-        default:"active"
+        default:"teacher"
     },
-    status: { type: String, enum: ["active", "restricted" , "panned"], default: "active" },
     isConfirmed:
     {
         type:Boolean,
@@ -25,4 +20,4 @@ const userSchema = Schema({
         timestamps:true,
         versionKey:false
     })
-export const userModel = model("AuthUser", userSchema);
+export const userModel = model("users", userSchema);

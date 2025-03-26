@@ -8,19 +8,21 @@ import { catchError } from "../../MiddleWare/catchError.js";
 //Sign UP
 export const signUp = catchError(
     async (req,res) => {
-    console.log("SignUp function called"); 
+        console.log("Received Data:", req.body); // ✅ طباعة البيانات للتحقق
+        // req.body.role = "teacher";
     req.body.password = bcrypt.hashSync(req.body.password, 8);
     if (req.body.role === "admin") {
-        req.body.isConfirmed = true;
-    } else {
-        req.body.isConfirmed = false;
-    }
+        return res.status(403).json({ message: "Admins cannot register themselves!" });
+      }
+    // if (req.body.role === "admin") {
+    //     req.body.isConfirmed = true;
+    // } 
     const addUser = await userModel.insertMany(req.body);//insertMany return an Array of object
-    if (req.body.role === "teacher") {
+    // if (req.body.role === "teacher") {
         await sendEmail(req.body.email);   
          console.log("Sending email to:", req.body.email); 
 
-    }
+    // }
     addUser[0].password = undefined;// remove password from the response
     res.status(201).json({message:"done", addUser});// 201 status code is used for created
 })
@@ -39,53 +41,41 @@ async (req,res)=>
         { expiresIn: "7d" } 
     ); 
         
-        res.status(200).json({message:`welcome ${foundUser.name}`, token});
+        res.status(200).json({message:`welcome ${foundUser.name}`, token,role: foundUser.role,name:foundUser.name});
     }else{
         res.status(401).json({message:"Check your Email to confirm!"});
     }
 })
-
-// forgotPassword
-export const forgotPassword = catchError(async (req, res) => {
-    const { email } = req.body;
-    const user = await userModel.findOne({ email });
-
-    if (!user) {
-        return res.status(404).json({ message: "User not found" });
-    }
-
-    const token = jwt.sign({ id: user._id }, "mySecretKey", { expiresIn: "1h" });
-
-    const resetLink = `http://localhost:3030/reset-password/${token}`;
-
-    console.log(`🔗 Password Reset Link: ${resetLink}`);
-
-    res.status(200).json({
-        message: "Password reset link generated. Check the console for details.",
-        resetLink
-    });
-});
-//resetPassword
-export const resetPassword = catchError(async (req, res) => {
-    const { token } = req.params; 
-    const { newPassword } = req.body;
-
+export const addAdmin = async (req, res) => {
     try {
-        const decoded = jwt.verify(token, "mySecretKey");
-
-        const user = await userModel.findById(decoded.id);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        user.password = bcrypt.hashSync(newPassword, 8);
-        await user.save();
-
-        res.status(200).json({ message: "Password has been reset successfully." });
+      const { name, email, password } = req.body;
+  
+      // تحقق مما إذا كان البريد الإلكتروني مستخدمًا بالفعل
+      const existingUser = await userModel.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "Email already exists!" });
+      }
+  
+      // تشفير كلمة المرور
+      const hashedPassword = bcrypt.hashSync(password, 10);
+  
+      // إنشاء Admin جديد
+      const newAdmin = new userModel({
+        name,
+        email,
+        password: hashedPassword,
+        role: "admin",
+        isConfirmed: true
+      });
+  
+      await newAdmin.save();
+      res.status(201).json({ message: "Admin created successfully!" });
+  
     } catch (error) {
-        res.status(400).json({ message: "Invalid or expired token" });
+      res.status(500).json({ message: "Error creating admin!", error });
     }
-});
+  };
+
 
 // //Update User Data
 export const updateUserDetails = catchError(async (req, res) => {
@@ -171,23 +161,6 @@ export const getUserById = catchError(async (req, res) => {
     }
 
     res.status(200).json({ message: "User retrieved successfully", user });
-});
-
-export const restrictUser = catchError(async (req, res) => {
-    const { userId } = req.params;
-    const { status } = req.body; // "restricted" أو "banned"
-
-    if (!["active", "restricted", "banned"].includes(status)) {
-        return res.status(400).json({ error: "Invalid status value! Use 'active', 'restricted', or 'banned'." });
-    }
-
-    const updatedUser = await userModel.findByIdAndUpdate(userId, { status }, { new: true });
-
-    if (!updatedUser) {
-        return res.status(404).json({ error: "User not found!" });
-    }
-
-    res.json({ message: `User status updated to ${status}`, user: updatedUser });
 });
 
 

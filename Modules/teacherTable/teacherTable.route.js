@@ -14,7 +14,7 @@ const TeacherRoute = express.Router();
 TeacherRoute.get("/getAllTeachers",getTeachers);
 TeacherRoute.post("/create",uploadSingleImage, verifyTokenAuth, createTeacher);
 TeacherRoute.get("/getTeacher", verifyTokenAuth, getTeacherByQuery);
-TeacherRoute.put("/update/:id", verifyTokenAuth, uploadSingleImage, updateTeacherById);
+TeacherRoute.put("/update/:id",uploadSingleImage, verifyTokenAuth, updateTeacherById);
 TeacherRoute.delete("/delete/:id", verifyTokenAuth, deleteTeacherById);
 
 export default TeacherRoute;
