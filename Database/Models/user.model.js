@@ -7,7 +7,7 @@ const userSchema = Schema({
     phone:String,
     role:{
         type: String,
-        enum:["admin" , "customer"],
+        enum:["admin" , "teacher"],
         default:"customer"
     },status:{
         type:String,
@@ -22,7 +22,7 @@ const userSchema = Schema({
     },
     walletBalance:Number
 },{
-        timestamps:true, // add createdAt and updatedAt
+        timestamps:true,
         versionKey:false
     })
-export const userModel = model("customer", userSchema);
+export const userModel = model("AuthUser", userSchema);

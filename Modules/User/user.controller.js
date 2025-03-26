@@ -16,7 +16,7 @@ export const signUp = catchError(
         req.body.isConfirmed = false;
     }
     const addUser = await userModel.insertMany(req.body);//insertMany return an Array of object
-    if (req.body.role === "customer") {
+    if (req.body.role === "teacher") {
         await sendEmail(req.body.email);   
          console.log("Sending email to:", req.body.email); 
 

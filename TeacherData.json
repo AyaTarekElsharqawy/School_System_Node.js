@@ -1,0 +1,167 @@
+{
+  "newsTicker": [
+    "شريط أخبار مهمه يظهر هنا متحرك",
+    "الإعلان عن موعد الاختبارات القادمة",
+    "يرجى تسديد الاشتراكات المتأخرة قبل نهاية الشهر"
+  ],
+ "teachers": [
+    {
+      "name": "أ. أحمد محمد عبدالله",
+      "image": "assets/images/Teachers/ahmed.png",
+      "time": "7:00 ص",
+      "subject": "فرنساوي"
+    },
+    {
+      "name": "أ. فاطمة علي حسن",
+      "image": "assets/images/Teachers/fatma.png",
+      "time": "8:00 ص",
+      "subject": "حاسب آلي"
+    },
+    {
+      "name": "أ. خالد سعيد محمود",
+      "image": "assets/images/Teachers/khaled.png",
+      "time": "9:00 ص",
+      "subject": "علوم"
+    },
+    {
+      "name": "أ. سارة عبد الرحمن",
+      "image": "assets/images/Teachers/sara.png",
+      "time": "10:00 ص",
+      "subject": "رياضيات"
+    },
+    {
+      "name": "أ. محمد علي أحمد",
+      "image": "assets/images/Teachers/mohamed.png",
+      "time": "11:00 ص",
+      "subject": "اللغة الإنجليزية"
+    },
+    {
+      "name": "أ. ليلى محمود سليمان",
+      "image": "assets/images/Teachers/leila.png",
+      "time": "12:00 م",
+       "subject": "اللغة العربية"
+    }
+  ],
+  "schedule": [
+    {
+      "subject": "اللغة العربية",
+      "teacher": {
+      "name": "أ. أحمد محمد عبدالله",
+      "image": "assets/images/Teachers/ahmed.png"
+      },
+      "days": ["أحد", "ثلاث"],
+      "time": "09:00AM",
+      "image": "assets/images/schedule/arabic.jpg"
+    },
+    {
+      "subject": "اللغة الإنجليزية",
+      "teacher": { "name": "أ. أحمد محمد عبدالله",
+      "image": "assets/images/Teachers/ahmed.png"
+      },
+      "days": ["خميس", "سبت"],
+      "time": "11:00AM",
+      "image": "assets/images/schedule/english.jpg"
+    },
+    {
+      "subject": "رياضيات",
+      "teacher": { "name": "أ. أحمد محمد عبدالله",
+      "image": "assets/images/Teachers/ahmed.png"
+      },
+      "days": ["اربع", "إثنين"],
+      "time": "15:00PM",
+      "image": "assets/images/schedule/math.jpg"
+    },
+    {
+      "subject": "اللغة العربية",
+      "teacher": { "name": "أ. أحمد محمد عبدالله",
+      "image": "assets/images/Teachers/ahmed.png"
+      },
+      "days": ["اربع", "إثنين"],
+      "time": "15:00PM",
+      "image": "assets/images/schedule/math.jpg"
+    }
+  ],
+  "grades": [
+    { "subject": "فرنساوي", "grade": 20, "color": "#509CDB" },
+    { "subject": "حاسب آلي", "grade": 60, "color": "#E10065" },
+    { "subject": "انجليزي", "grade": 70, "color": "#EFF2FF" },
+    { "subject": "عربي", "grade": 80, "color": "#0177FB" },
+    { "subject": "رياضيات", "grade": 90, "color": "#5C4E8E" },
+    { "subject": "علوم", "grade": 75, "color": "#3FB65F" }
+  ]
+  ,
+  "notifcation": [
+    {
+      "message":" تم تسجيل حضورك اليوم",
+      "date": "2023-10-01",
+      "read": false
+    },
+    {
+      "message": " لديك امتحان غدًا",
+      "date": "2023-10-02",
+      "read": false
+    },
+    {
+      "message": " تم دفع الرسوم الدراسية",
+      "date": "2023-10-03",
+      "read": true
+    }
+  ],
+    "subjects": [
+      { "id": 1, "name": "الرياضيات" },
+      { "id": 2, "name": "اللغة العربية" },
+      { "id": 3, "name": "العلوم" },
+      { "id": 4, "name": "اللغة الإنجليزية" }
+    ],
+    "exams": [
+      {
+        "subject": "الرياضيات",
+        "type": "weekly",
+        "day": "الأحد",
+        "time": "10:00 صباحًا"
+      },
+      {
+        "subject": "الرياضيات",
+        "type": "monthly",
+        "day": "الاثنين",
+        "time": "12:00 مساءً"
+      },
+      {
+        "subject": "اللغة العربية",
+        "type": "weekly",
+        "day": "الثلاثاء",
+        "time": "9:00 صباحًا"
+      },
+      {
+        "subject": "اللغة العربية",
+        "type": "monthly",
+        "day": "الأربعاء",
+        "time": "11:00 صباحًا"
+      },
+      {
+        "subject": "العلوم",
+        "type": "weekly",
+        "day": "الخميس",
+        "time": "1:00 مساءً"
+      },
+      {
+        "subject": "العلوم",
+        "type": "monthly",
+        "day": "الجمعة",
+        "time": "3:00 مساءً"
+      },
+      {
+        "subject": "اللغة الإنجليزية",
+        "type": "weekly",
+        "day": "السبت",
+        "time": "2:00 مساءً"
+      },
+      {
+        "subject": "اللغة الإنجليزية",
+        "type": "monthly",
+        "day": "الأحد",
+        "time": "4:00 مساءً"
+      }
+    ]
+  }
+  
