@@ -18,7 +18,7 @@ export const chatWith = catchError(async (req, res) => {
     }
 
     const allowedTopics = [
-        "جدول", "أنشطة", "رسوم", "تسجيل", "مناهج", "فعاليات", "تواصل", "امتحانات",
+        "جدول", "أنشطة", "رسوم", "تسجيل", "مناهج", "فعاليات", "تواصل", "امتحانات","مرحبا","شكرا",
         "schedule", "activities", "fees", "registration", "curriculum", "events", "contact", "exams"
     ];
 
@@ -40,6 +40,8 @@ export const chatWith = catchError(async (req, res) => {
         5. لدينا فعاليات شهرية مثل أيام مفتوحة واحتفالات.
         6. يمكن التواصل مع إدارة الحضانة عبر البريد الإلكتروني أو الهاتف.
         7. الجدول اليومي يتضمن وقت للعب والتعلم والوجبات.
+        8.مرحبا بك في روضه الفرقان عن ماذا تود ان تسأل 
+        9. العفو انا هنا لاجابتك على اي اساله خاصه بموقعنا
     ` : `
         You are a virtual assistant for a nursery website. Please answer only questions related to the nursery.
         Nursery Information:
