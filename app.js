@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 import migrationRoutes from './Modules/service/migration.route.js';
 import TeacherRoute from './Modules/teacherTable/teacherTable.route.js';
 import StudentRoute from './Modules/studentTable/studentTable.route.js';
+import ChatRoute from "./Modules/routes/geminiRoutes.route.js";
 
 const app = express();
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use(cors({
   app.use('/api/exams', examRoute);
   app.use('/api/teachers', TeacherRoute);
   app.use('/api/students', StudentRoute);
+  app.use("/gemini", ChatRoute);
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ 
