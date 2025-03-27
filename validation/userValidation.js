@@ -20,7 +20,7 @@ const userSchema = Joi.object({
       "string.pattern.base": "Password must contain at least one letter and one number",
     }),
   phone: Joi.string()
-  .pattern(new RegExp("^[0-9]{10}$"))
+  .pattern(new RegExp("^01[0-9]{9}$"))
   .messages({
     "string.pattern.base": "Invalid phone number",
   }),

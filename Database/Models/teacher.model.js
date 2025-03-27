@@ -15,7 +15,6 @@ const teacherSchema = new mongoose.Schema({
     },
     phone: { 
         type: String, 
-        required: [true, 'Phone is required'],
         unique: true,
         match: [/^01[0-9]{9}$/, 'Please enter a valid Egyptian phone number']
     },
